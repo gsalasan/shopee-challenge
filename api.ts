@@ -230,9 +230,9 @@ const apiDocsHtml = `
 
         <div class="example">
             <div class="example-title">Example using curl:</div>
-            <pre><code>curl -X POST http://localhost:3001/api/scrape \\
+            <pre><code>curl -X POST http://"domain"/api/scrape \\
     -H "Content-Type: application/json" \\
-    -d '{"url": "https://shopee.tw/product/178926468/21448123549"}'</code></pre>
+    -d '{"url": "https://shopee.tw/a-i.178926468.21448123549"}'</code></pre>
         </div>
     </div>
 
