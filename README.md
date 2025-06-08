@@ -1,15 +1,18 @@
 # Shopee Product Scraper
 
-A web-based tool for scraping product data from Shopee using a proxy service. This application provides a user-friendly interface to extract PDP_BFF_DATA from Shopee product pages.
+A web-based tool and REST API for scraping product data from Shopee using a proxy service. This application provides both a user-friendly interface and a REST API to extract PDP_BFF_DATA from Shopee product pages.
 
 ## Features
 
 - Web-based user interface
+- REST API for programmatic access
 - Proxy integration for reliable scraping
 - Automatic port management
 - Real-time scraping status
 - JSON data export
 - Support for both Windows and Unix systems
+- CORS support for API endpoints
+- Interactive API documentation
 
 ## Prerequisites
 
@@ -74,7 +77,9 @@ A web-based tool for scraping product data from Shopee using a proxy service. Th
 
 ## Usage
 
-1. Start the server:
+### Web Interface
+
+1. Start the web interface server:
    ```bash
    bun run index.ts
    ```
@@ -97,13 +102,60 @@ A web-based tool for scraping product data from Shopee using a proxy service. Th
    - `debug.html`: Raw HTML response
    - `results.json`: Extracted PDP_BFF_DATA
 
+### REST API
+
+1. Start the API server:
+   ```bash
+   bun run api.ts
+   ```
+
+2. The API will be available at:
+   ```
+   http://localhost:3001
+   ```
+   Note: If port 3001 is in use, the server will automatically use the next available port.
+
+3. API Documentation:
+   - Visit `http://localhost:3001/api/docs` for interactive API documentation
+   - The documentation includes example requests and response formats
+
+4. Available Endpoints:
+
+   a. **Scrape Product Data**
+   ```bash
+   curl -X POST http://localhost:3001/api/scrape \
+     -H "Content-Type: application/json" \
+     -d '{"url": "https://shopee.tw/product/178926468/21448123549"}'
+   ```
+
+   b. **Health Check**
+   ```bash
+   curl http://localhost:3001/api/health
+   ```
+
+   c. **API Documentation**
+   ```bash
+   curl http://localhost:3001/api/docs
+   ```
+
+5. API Response Format:
+   ```json
+   {
+     "success": true,
+     "data": {
+       // Product data from PDP_BFF_DATA
+     },
+     "timestamp": "2024-03-14T12:00:00.000Z"
+   }
+   ```
+
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Port already in use**
-   - The application will automatically try the next available port
-   - Check the console output for the correct port number
+   - Both servers will automatically try the next available port
+   - Check the console output for the correct port numbers
 
 2. **Proxy connection issues**
    - Verify your internet connection
@@ -132,7 +184,7 @@ A web-based tool for scraping product data from Shopee using a proxy service. Th
 1. **Permission issues**
    - If you encounter permission errors, try:
    ```bash
-   chmod +x index.ts
+   chmod +x index.ts api.ts
    ```
 
 2. **Shell configuration**
@@ -148,7 +200,8 @@ A web-based tool for scraping product data from Shopee using a proxy service. Th
 
 ```
 shopee-challenge/
-├── index.ts          # Main application file
+├── index.ts          # Web interface server
+├── api.ts            # REST API server
 ├── debug.html        # Raw HTML response (generated)
 ├── results.json      # Extracted data (generated)
 ├── package.json      # Project dependencies
